@@ -131,17 +131,39 @@
         }
         .hero-cta:hover { background: var(--white); color: var(--black); border-color: var(--white); }
 
-        .hero-image { position: relative; overflow: hidden; z-index: 2; }
-        .hero-image img {
+        /* ── HERO SLIDESHOW ── */
+        .hero-image {
+            position: relative;
+            overflow: hidden;
+            z-index: 2;
+            cursor: pointer;
+            background: var(--black);
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0; left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            object-position: top;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .hero-slide.active { opacity: 1; }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center center;
             filter: grayscale(100%) brightness(0.75);
             transition: filter 1.5s ease;
             display: block;
         }
-        .hero-image:hover img { filter: grayscale(0%) brightness(0.85); }
+
+        .hero-image:hover .hero-slide.active img {
+            filter: grayscale(0%) brightness(0.85);
+        }
 
         .hero-image-label {
             position: absolute;
@@ -153,7 +175,42 @@
             color: rgba(255,255,255,0.4);
             writing-mode: vertical-rl;
             z-index: 3;
+            pointer-events: none;
         }
+
+        /* Counter — bottom left of image */
+        .hero-slide-counter {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 1.5rem;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.35);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* Dots — bottom centre of image */
+        .hero-dots {
+            position: absolute;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .hero-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.25);
+            transition: background 0.4s;
+        }
+
+        .hero-dot.active { background: var(--accent); }
 
         /* ── ABOUT ── */
         .about {
@@ -599,16 +656,31 @@
             </div>
             <a href="book.html" class="hero-cta">Book a Consultation</a>
         </div>
-        <div class="hero-image">
-            <img src="images/hero.jpg" alt="Styling with Sarzie">
+        <div class="hero-image" id="heroSlideshow">
+            <div class="hero-slide active"><img src="images/pic8.jpg" alt="Styling with Sarzie 1"></div>
+            <div class="hero-slide"><img src="images/pic2.jpg" alt="Styling with Sarzie 2"></div>
+            <div class="hero-slide"><img src="images/pic3.jpg" alt="Styling with Sarzie 3"></div>
+            <div class="hero-slide"><img src="images/pic4.jpg" alt="Styling with Sarzie 4"></div>
+            <div class="hero-slide"><img src="images/pic5.jpg" alt="Styling with Sarzie 5"></div>
+            <div class="hero-slide"><img src="images/pic6.jpg" alt="Styling with Sarzie 6"></div>
+            <div class="hero-slide"><img src="images/pic7.jpg" alt="Styling with Sarzie 7"></div>
+            <div class="hero-slide"><img src="images/pic18.jpg" alt="Styling with Sarzie 14"></div>
+            <div class="hero-slide"><img src="images/pic9.jpg" alt="Styling with Sarzie 9"></div>
+            <div class="hero-slide"><img src="images/pic10.jpg" alt="Styling with Sarzie 10"></div>
+            <div class="hero-slide"><img src="images/pic11.jpg" alt="Styling with Sarzie 11"></div>
+            <div class="hero-slide"><img src="images/pic12.jpg" alt="Styling with Sarzie 12"></div>
+            <div class="hero-slide"><img src="images/pic15.jpg" alt="Styling with Sarzie 13"></div>
+            <div class="hero-slide"><img src="images/pic17.jpg" alt="Styling with Sarzie 14"></div>
             <span class="hero-image-label">Hand-curated · Intuitively styled</span>
+            <span class="hero-slide-counter" id="heroCounter">1 / 15</span>
+            <div class="hero-dots" id="heroDots"></div>
         </div>
     </section>
 
     <!-- ══ ABOUT ══ -->
     <section id="about" class="about">
         <div class="about-image">
-            <img src="images/about.jpg" alt="Sarzie — Personal Stylist">
+            <img src="images/pic14.jpg" alt="Sarzie — Personal Stylist">
         </div>
         <div class="about-content">
             <span style="font-size:0.6rem; letter-spacing:4px; text-transform:uppercase; color:var(--accent); display:block; margin-bottom:1.5rem;">The Story</span>
@@ -668,33 +740,33 @@
             <div class="event-row">
                 <div class="event-date-block">
                     <span class="month">APR</span>
-                    <span class="day">12</span>
+                    <span class="day">25</span>
                 </div>
                 <div>
-                    <span class="event-row-meta">Cape Town · Workshop</span>
-                    <h3>Style Your Story Workshop</h3>
+                    <span class="event-row-meta">Online · Masterclass</span>
+                    <h3>The Identity Shift: How Personal Style Shapes Perception</h3>
                 </div>
                 <a href="events.html" class="event-row-link">Reserve a Seat →</a>
             </div>
             <div class="event-row">
                 <div class="event-date-block">
                     <span class="month">MAY</span>
-                    <span class="day">03</span>
+                    <span class="day">01</span>
                 </div>
                 <div>
-                    <span class="event-row-meta">Virtual · Masterclass</span>
-                    <h3>Capsule Wardrobe Masterclass</h3>
+                    <span class="event-row-meta">Online · Masterclass</span>
+                    <h3>Unlock Your Signature Style: Transform Your Wardrobe DNA</h3>
                 </div>
                 <a href="events.html" class="event-row-link">Reserve a Seat →</a>
             </div>
             <div class="event-row">
                 <div class="event-date-block">
-                    <span class="month">JUN</span>
-                    <span class="day">21</span>
+                    <span class="month">MAY</span>
+                    <span class="day">30</span>
                 </div>
                 <div>
-                    <span class="event-row-meta">Cape Town · Evening</span>
-                    <h3>The Bridal Edit Evening</h3>
+                    <span class="event-row-meta">Online · Workshop</span>
+                    <h3>Style Your Story: An Intimate Workshop on Visual Narrative</h3>
                 </div>
                 <a href="events.html" class="event-row-link">Reserve a Seat →</a>
             </div>
@@ -772,7 +844,7 @@
             <a href="book.html" class="btn-outline-white">Book Your Consultation</a>
         </div>
         <div class="book-cta-image">
-            <img src="images/about.jpg" alt="Styling with Sarzie">
+            <img src="images/pic1.jpg" alt="Styling with Sarzie">
         </div>
     </section>
 
@@ -786,6 +858,39 @@
         </div>
         <p style="opacity:0.5; font-size:0.7rem; letter-spacing:2px;">© 2026 STYLING WITH SARZIE | CAPE TOWN & VIRTUAL</p>
     </footer>
+
+    <script>
+        (function () {
+            const slideshow = document.getElementById('heroSlideshow');
+            const slides    = slideshow.querySelectorAll('.hero-slide');
+            const counter   = document.getElementById('heroCounter');
+            const dotsWrap  = document.getElementById('heroDots');
+            const total     = slides.length;
+            let current     = 0;
+
+            // Build dots
+            slides.forEach(function (_, i) {
+                const dot = document.createElement('div');
+                dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+                dotsWrap.appendChild(dot);
+            });
+
+            const dots = dotsWrap.querySelectorAll('.hero-dot');
+
+            function goTo(index) {
+                slides[current].classList.remove('active');
+                dots[current].classList.remove('active');
+                current = (index + total) % total;
+                slides[current].classList.add('active');
+                dots[current].classList.add('active');
+                counter.textContent = (current + 1) + ' / ' + total;
+            }
+
+            slideshow.addEventListener('click', function () {
+                goTo(current + 1);
+            });
+        })();
+    </script>
 
 </body>
 </html>
