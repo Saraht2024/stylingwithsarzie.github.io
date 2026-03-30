@@ -52,7 +52,6 @@
             overflow: hidden;
         }
 
-        /* Subtle grid texture */
         .events-header::before {
             content: '';
             position: absolute;
@@ -87,51 +86,43 @@
         }
 
         /* ── EVENTS LIST ── */
-        .events-container {
-            padding: 8rem 10%;
-        }
+        .events-container { padding: 8rem 10%; }
 
-        /* ─────────────────────────────────────────────────────
-           HOW TO ADD A NEW EVENT
-           ─────────────────────────────────────────────────────
-           Copy the block below (from "EVENT CARD START" to
-           "EVENT CARD END") and paste it before the closing
-           </div> of .events-list.
+        /*
+        ═══════════════════════════════════════════════════════
+        HOW TO ADD A NEW EVENT
+        ═══════════════════════════════════════════════════════
+        Copy one EVENT CARD block and paste it inside .events-list.
+        Update:
+          • .month     → 3-letter month e.g. APR
+          • .day       → day number e.g. 25
+          • .year      → year e.g. 2026
+          • .event-location → Cape Town / Virtual / Online
+          • .event-type     → Workshop / Masterclass / Evening
+          • h2              → event title
+          • .event-description → 1–2 sentence summary
+          • .event-detail items → Date / Time / Duration / Investment
+          • href on .event-link → booking link or book.html
 
-           Then fill in:
-             • data-month   → 3-letter month e.g. APR
-             • data-day     → day number e.g. 12
-             • DATE SPAN    → full date + location e.g. April 12, 2026 · Cape Town
-             • TYPE SPAN    → event type e.g. Workshop / Masterclass / Evening
-             • H2           → event name
-             • P            → short description (1–2 sentences)
-             • HREF on <a>  → booking/ticket link, or mailto:
+        To mark SOLD OUT add class "sold-out" to .event-card:
+          <div class="event-card sold-out">
+        To mark COMING SOON add class "coming-soon" to .event-card.
+        ═══════════════════════════════════════════════════════
+        */
 
-           To mark an event as SOLD OUT, add the class
-           "sold-out" to the event-card div:
-             <div class="event-card sold-out">
+        .events-list { display: flex; flex-direction: column; gap: 0; }
 
-           ───────────────────────────────────────────────────── -->
-
-        .events-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        /* EVENT CARD */
         .event-card {
             display: grid;
             grid-template-columns: 140px 1fr auto;
-            align-items: center;
+            align-items: start;
             gap: 4rem;
             padding: 3.5rem 0;
             border-bottom: 1px solid #f0f0f0;
-            transition: background 0.4s;
+            transition: background 0.4s, padding 0.4s;
         }
 
         .event-card:first-child { border-top: 1px solid #f0f0f0; }
-
         .event-card:hover { background: var(--lilac-tint); padding-left: 2rem; padding-right: 2rem; margin: 0 -2rem; }
 
         /* Date block */
@@ -144,10 +135,7 @@
             min-width: 100px;
         }
 
-        .event-card:hover .event-date-block {
-            background: var(--white);
-            border-color: var(--accent);
-        }
+        .event-card:hover .event-date-block { background: var(--white); border-color: var(--accent); }
 
         .event-date-block .month {
             font-size: 0.6rem;
@@ -174,6 +162,18 @@
             display: block;
         }
 
+        /* TBC date block */
+        .event-date-block .tbc {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.3;
+            display: block;
+            margin-bottom: 0.3rem;
+            font-style: italic;
+            opacity: 0.6;
+        }
+
         /* Event info */
         .event-info { flex: 1; }
 
@@ -182,6 +182,7 @@
             gap: 1.5rem;
             align-items: center;
             margin-bottom: 0.6rem;
+            flex-wrap: wrap;
         }
 
         .event-location {
@@ -199,21 +200,57 @@
         }
 
         .event-info h2 {
-            font-size: clamp(1.1rem, 2vw, 1.6rem);
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
             letter-spacing: 2px;
             margin-bottom: 0.6rem;
             text-transform: uppercase;
+            line-height: 1.3;
         }
 
-        .event-info p {
+        .event-description {
             font-size: 0.9rem;
             font-weight: 300;
             color: #555;
             max-width: 560px;
+            margin-bottom: 1.2rem;
+        }
+
+        /* Detail pills */
+        .event-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .event-detail {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(0,0,0,0.45);
+            border: 1px solid #eee;
+            padding: 0.3rem 0.8rem;
+        }
+
+        .event-detail strong {
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        /* Early bird badge */
+        .early-bird {
+            display: inline-block;
+            font-size: 0.55rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: var(--lilac-pop);
+            color: var(--black);
+            padding: 0.25rem 0.7rem;
+            margin-top: 0.5rem;
         }
 
         /* CTA */
-        .event-cta { text-align: right; }
+        .event-cta { text-align: right; padding-top: 0.5rem; }
 
         .event-link {
             display: inline-block;
@@ -228,44 +265,26 @@
             white-space: nowrap;
         }
 
-        .event-link:hover {
-            background: var(--black);
-            color: var(--white);
-        }
+        .event-link:hover { background: var(--black); color: var(--white); }
 
-        /* Sold out state */
-        .event-card.sold-out .event-date-block {
-            opacity: 0.4;
-        }
-
+        /* Sold out */
+        .event-card.sold-out .event-date-block { opacity: 0.4; }
         .event-card.sold-out .event-info h2,
-        .event-card.sold-out .event-info p {
-            opacity: 0.4;
-        }
-
+        .event-card.sold-out .event-info .event-description { opacity: 0.4; }
         .event-card.sold-out .event-link {
             border-color: #ccc;
             color: #ccc;
             pointer-events: none;
-            letter-spacing: 3px;
         }
+        .event-card.sold-out .event-link::before { content: 'Sold Out'; }
 
-        .event-card.sold-out .event-link::before {
-            content: 'Sold Out';
+        /* Coming soon */
+        .event-card.coming-soon .event-link {
+            border-color: var(--accent);
+            color: var(--accent);
+            pointer-events: none;
         }
-
-        /* No events state */
-        .no-events {
-            text-align: center;
-            padding: 6rem 0;
-            opacity: 0.4;
-        }
-
-        .no-events p {
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
+        .event-card.coming-soon .event-link::before { content: 'Date TBC'; }
 
         /* ── BOOK CTA ── */
         .book-section {
@@ -274,10 +293,7 @@
             padding: 10rem 10%;
         }
 
-        .book-section h2 {
-            margin-bottom: 3.5rem;
-            line-height: 1.4;
-        }
+        .book-section h2 { margin-bottom: 3.5rem; line-height: 1.4; }
 
         .btn {
             padding: 1.2rem 3rem;
@@ -297,11 +313,7 @@
             box-shadow: 0 4px 15px rgba(216,191,216,0.3);
         }
 
-        .btn-lilac:hover {
-            background: var(--white);
-            border-color: var(--black);
-            transform: translateY(-2px);
-        }
+        .btn-lilac:hover { background: var(--white); border-color: var(--black); transform: translateY(-2px); }
 
         /* ── FOOTER ── */
         footer {
@@ -317,20 +329,13 @@
         /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
             .event-card {
-                grid-template-columns: 80px 1fr;
+                grid-template-columns: 100px 1fr;
                 grid-template-rows: auto auto;
                 gap: 1.5rem 2rem;
                 padding: 2.5rem 0;
             }
-            .event-cta {
-                grid-column: 1 / -1;
-                text-align: left;
-            }
-            .event-card:hover {
-                padding-left: 1rem;
-                padding-right: 1rem;
-                margin: 0 -1rem;
-            }
+            .event-cta { grid-column: 1 / -1; text-align: left; }
+            .event-card:hover { padding-left: 1rem; padding-right: 1rem; margin: 0 -1rem; }
         }
     </style>
 </head>
@@ -350,86 +355,169 @@
     <header class="events-header">
         <span class="script">Coming Up</span>
         <h1>Events</h1>
-        <p>Cape Town &amp; Virtual</p>
+        <p>Online · Identity-Led Masterclasses</p>
     </header>
 
     <div class="events-container">
         <div class="events-list">
 
-            <!-- ═══════════════════════════════════════════════
-                 EVENT CARD START — copy from here to add a new event
-                 ═══════════════════════════════════════════════ -->
+            <!-- ═══════════════════════════════════ EVENT CARD START ═══ -->
             <div class="event-card">
                 <div class="event-date-block">
                     <span class="month">APR</span>
-                    <span class="day">12</span>
+                    <span class="day">25</span>
                     <span class="year">2026</span>
                 </div>
                 <div class="event-info">
                     <div class="event-meta">
-                        <span class="event-location">Cape Town</span>
-                        <span class="event-type">Workshop</span>
+                        <span class="event-location">Online · Google Meet</span>
+                        <span class="event-type">Masterclass</span>
                     </div>
-                    <h2>Style Your Story Workshop</h2>
-                    <p>An intimate morning workshop exploring how your wardrobe can reflect your personal narrative.</p>
+                    <h2>The Identity Shift: How Personal Style Shapes Perception</h2>
+                    <p class="event-description">Your clothes speak before you do. In this 90-minute live session, we throw the rulebook away and focus on the "why" behind your wardrobe — building a look that is authentic, intentional, and empowering.</p>
+                    <div class="event-details">
+                        <span class="event-detail"><strong>Time:</strong> 10:00 AM</span>
+                        <span class="event-detail"><strong>Duration:</strong> 90 min incl. Q&A</span>
+                        <span class="event-detail"><strong>Investment:</strong> R400</span>
+                    </div>
                 </div>
                 <div class="event-cta">
                     <a href="book.html" class="event-link">Reserve a Seat</a>
                 </div>
             </div>
-            <!-- ═══════════════════════════════════════════════
-                 EVENT CARD END
-                 ═══════════════════════════════════════════════ -->
+            <!-- ═══════════════════════════════════ EVENT CARD END ═══ -->
 
-            <!-- ═══════════════════════════════════════════════
-                 EVENT CARD START
-                 ═══════════════════════════════════════════════ -->
+            <!-- ═══════════════════════════════════ EVENT CARD START ═══ -->
             <div class="event-card">
                 <div class="event-date-block">
                     <span class="month">MAY</span>
-                    <span class="day">03</span>
+                    <span class="day">01</span>
                     <span class="year">2026</span>
                 </div>
                 <div class="event-info">
                     <div class="event-meta">
-                        <span class="event-location">Virtual</span>
+                        <span class="event-location">Online · Google Meet</span>
                         <span class="event-type">Masterclass</span>
                     </div>
-                    <h2>Capsule Wardrobe Masterclass</h2>
-                    <p>Build a wardrobe that works harder for you — live, interactive, and limited to 20 seats.</p>
+                    <h2>Unlock Your Signature Style: Transform Your Wardrobe DNA</h2>
+                    <p class="event-description">You open your closet, stare at a full rail of clothes, and still feel like you have nothing to wear. In this 90-minute session, you'll walk away with a clear, personalised style framework that makes getting dressed feel easy, intentional, and joyful.</p>
+                    <div class="event-details">
+                        <span class="event-detail"><strong>Time:</strong> 11:00 AM</span>
+                        <span class="event-detail"><strong>Duration:</strong> 90 min incl. Q&A</span>
+                        <span class="event-detail"><strong>Early Bird:</strong> R350 (by Apr 15)</span>
+                        <span class="event-detail"><strong>Standard:</strong> R400</span>
+                    </div>
+                    <span class="early-bird">Early Bird Available — Book by April 15th</span>
                 </div>
                 <div class="event-cta">
                     <a href="book.html" class="event-link">Reserve a Seat</a>
                 </div>
             </div>
-            <!-- ═══════════════════════════════════════════════
-                 EVENT CARD END
-                 ═══════════════════════════════════════════════ -->
+            <!-- ═══════════════════════════════════ EVENT CARD END ═══ -->
 
-            <!-- ═══════════════════════════════════════════════
-                 EVENT CARD START
-                 ═══════════════════════════════════════════════ -->
+            <!-- ═══════════════════════════════════ EVENT CARD START ═══ -->
+            <div class="event-card">
+                <div class="event-date-block">
+                    <span class="month">MAY</span>
+                    <span class="day">30</span>
+                    <span class="year">2026</span>
+                </div>
+                <div class="event-info">
+                    <div class="event-meta">
+                        <span class="event-location">Online · Google Meet</span>
+                        <span class="event-type">Workshop</span>
+                    </div>
+                    <h2>Style Your Story: An Intimate Workshop on Visual Narrative</h2>
+                    <p class="event-description">Every outfit tells a story. This intimate morning session explores how to translate your personal journey, your heritage, and your future ambitions into a visual aesthetic that feels like coming home.</p>
+                    <div class="event-details">
+                        <span class="event-detail"><strong>Time:</strong> 11:00 AM</span>
+                        <span class="event-detail"><strong>Duration:</strong> 90 min incl. Q&A</span>
+                        <span class="event-detail"><strong>Investment:</strong> R400</span>
+                    </div>
+                </div>
+                <div class="event-cta">
+                    <a href="book.html" class="event-link">Reserve a Seat</a>
+                </div>
+            </div>
+            <!-- ═══════════════════════════════════ EVENT CARD END ═══ -->
+
+            <!-- ═══════════════════════════════════ EVENT CARD START ═══ -->
             <div class="event-card">
                 <div class="event-date-block">
                     <span class="month">JUN</span>
-                    <span class="day">21</span>
+                    <span class="day">27</span>
                     <span class="year">2026</span>
                 </div>
                 <div class="event-info">
                     <div class="event-meta">
-                        <span class="event-location">Cape Town</span>
-                        <span class="event-type">Evening</span>
+                        <span class="event-location">Online · Google Meet</span>
+                        <span class="event-type">Masterclass</span>
                     </div>
-                    <h2>The Bridal Edit Evening</h2>
-                    <p>A curated evening for brides-to-be looking to define their wedding style with intention.</p>
+                    <h2>The Capsule Masterclass: Build a Wardrobe That Works Harder</h2>
+                    <p class="event-description">Clutter is the enemy of clarity. In this live interactive session, learn how to curate a high-functioning capsule wardrobe built around your lifestyle, your body, and the life you are actually living.</p>
+                    <div class="event-details">
+                        <span class="event-detail"><strong>Time:</strong> 11:00 AM</span>
+                        <span class="event-detail"><strong>Duration:</strong> 90 min incl. Q&A</span>
+                        <span class="event-detail"><strong>Investment:</strong> R400</span>
+                    </div>
                 </div>
                 <div class="event-cta">
                     <a href="book.html" class="event-link">Reserve a Seat</a>
                 </div>
             </div>
-            <!-- ═══════════════════════════════════════════════
-                 EVENT CARD END
-                 ═══════════════════════════════════════════════ -->
+            <!-- ═══════════════════════════════════ EVENT CARD END ═══ -->
+
+            <!-- ═══════════════════════════════════ EVENT CARD START ═══ -->
+            <div class="event-card">
+                <div class="event-date-block">
+                    <span class="month">JUL</span>
+                    <span class="day">25</span>
+                    <span class="year">2026</span>
+                </div>
+                <div class="event-info">
+                    <div class="event-meta">
+                        <span class="event-location">Online · Google Meet</span>
+                        <span class="event-type">Masterclass</span>
+                    </div>
+                    <h2>Trends vs. Personal Style: Finding Your Balance in a Fast-Fashion World</h2>
+                    <p class="event-description">Staying relevant doesn't have to mean losing yourself. Learn how to engage with the trend cycle on your own terms, filtering what's next through the lens of who you are.</p>
+                    <div class="event-details">
+                        <span class="event-detail"><strong>Time:</strong> 11:00 AM</span>
+                        <span class="event-detail"><strong>Duration:</strong> 90 min incl. Q&A</span>
+                        <span class="event-detail"><strong>Investment:</strong> R400</span>
+                    </div>
+                </div>
+                <div class="event-cta">
+                    <a href="book.html" class="event-link">Reserve a Seat</a>
+                </div>
+            </div>
+            <!-- ═══════════════════════════════════ EVENT CARD END ═══ -->
+
+            <!-- ═══════════════════════════════════ EVENT CARD START ═══ -->
+            <div class="event-card coming-soon">
+                <div class="event-date-block">
+                    <span class="month">TBC</span>
+                    <span class="tbc">Date to be confirmed</span>
+                </div>
+                <div class="event-info">
+                    <div class="event-meta">
+                        <span class="event-location">Online · Google Meet</span>
+                        <span class="event-type">Evening Session</span>
+                    </div>
+                    <h2>The Bridal Edit Evening: Defining Your Wedding Style with Intention</h2>
+                    <p class="event-description">For the intentional bride who refuses to lose herself in the process. Define a wedding aesthetic that is authentically yours — from the rehearsal dinner to the final look.</p>
+                    <div class="event-details">
+                        <span class="event-detail"><strong>Time:</strong> Evening (TBC)</span>
+                        <span class="event-detail"><strong>Duration:</strong> 90 min incl. Q&A</span>
+                        <span class="event-detail"><strong>Investment:</strong> R500</span>
+                        <span class="event-detail"><strong>Includes:</strong> Bridal Moodboard Template</span>
+                    </div>
+                </div>
+                <div class="event-cta">
+                    <a href="book.html" class="event-link">Notify Me</a>
+                </div>
+            </div>
+            <!-- ═══════════════════════════════════ EVENT CARD END ═══ -->
 
         </div>
     </div>
@@ -444,4 +532,11 @@
         <a href="index.html" class="script footer-logo">Styling with Sarzie</a>
         <div style="margin-bottom: 2rem;">
             <a href="#" style="color: white; text-decoration: none; margin: 0 10px;">Instagram</a>
-            <svg class="footer-heart" viewBox="0 0 32 3
+            <svg class="footer-heart" viewBox="0 0 32 32"><path d="M16 28.5L13.65 26.35C5.4 18.85 0 14 0 8C0 3.5 3.5 0 8 0C10.55 0 13 1.2 14.5 3.1C16 1.2 18.45 0 21 0C25.5 0 29 3.5 29 8C29 14 23.6 18.85 15.35 26.35L16 28.5Z"/></svg>
+            <a href="#" style="color: white; text-decoration: none; margin: 0 10px;">Pinterest</a>
+        </div>
+        <p style="opacity: 0.5; font-size: 0.7rem; letter-spacing: 2px;">© 2026 STYLING WITH SARZIE | CAPE TOWN & VIRTUAL</p>
+    </footer>
+
+</body>
+</html>
